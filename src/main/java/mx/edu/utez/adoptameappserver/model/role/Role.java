@@ -22,12 +22,7 @@ public class Role {
     @Column(length = 25, nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @OneToMany (mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<User> users;
+    private Set<User> user;
 }

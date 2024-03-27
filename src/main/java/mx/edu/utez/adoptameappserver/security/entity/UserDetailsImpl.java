@@ -6,14 +6,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Builder
 
 public class UserDetailsImpl implements UserDetails {
 
-    private String email;
+    private String username;
 
     private String password;
 
@@ -24,10 +24,7 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(User user) {
-        Set<GrantedAuthority> authorities =
-                user.getRole().stream()
-                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-                        .collect(Collectors.toSet());
+        Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
         return new UserDetailsImpl(
                 user.getEmail(), user.getPassword(),
                 user.getBlocked(), user.getStatus(), authorities
@@ -45,7 +42,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class RoleService {
         List<Role> roles = repository.findAll();
         if (roles.isEmpty()) {
             return new ApiResponse<>(
-                    roles, false ,HttpStatus.BAD_REQUEST, "No hay roles registrados"
+                    roles, true ,HttpStatus.BAD_REQUEST, "No hay roles registrados"
             );
         } else {
             return new ApiResponse<>(

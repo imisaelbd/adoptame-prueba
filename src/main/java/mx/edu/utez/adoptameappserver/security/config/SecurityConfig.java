@@ -28,7 +28,7 @@ public class SecurityConfig {
     private final String[] whiteList = {
             "/api-adopt/user/**",
             "/api-adopt/role/**",
-            "/api-adopt/auth/**",
+            "/api-adopt/auth/signIn",
     };
 
     @Bean

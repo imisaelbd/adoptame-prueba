@@ -36,12 +36,13 @@ public class JwtProvider {
     }
 
     public String generateToken(Map<String, Object> extractClaims, UserDetails userDetails) {
+        extractClaims.put("roles", userDetails.getAuthorities());
         return Jwts
                 .builder()
                 .claims(extractClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .expiration(new Date(System.currentTimeMillis() + (1000*60)*5))
                 .signWith(getSingKey(), Jwts.SIG.HS256)
                 .compact();
     }

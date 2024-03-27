@@ -38,7 +38,7 @@ public class RoleController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ApiResponse<List<Role>>> getAll () {
         try {
             ApiResponse<List<Role>> response = service.getAll();
